@@ -7,8 +7,8 @@ import com.proj.springbootcrudapi.model.Book;
 public interface BookDao {
 	
 	List<Book> get();
-	Book get(int id);
+	Book get(String id);
 	void save(Book book);
-	void delete(int id);
+	void delete(String id);
 
 }

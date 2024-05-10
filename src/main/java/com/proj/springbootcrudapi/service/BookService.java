@@ -8,8 +8,8 @@ import com.proj.springbootcrudapi.model.Book;
 public interface BookService {
 	
 	List<Book> get();
-	Book get(int isbn);
+	Book get(String isbn);
 	boolean save(Book book) throws IOException;
-	void delete(int isbn);
+	void delete(String isbn);
 
 }

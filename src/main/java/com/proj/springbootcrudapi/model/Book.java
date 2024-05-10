@@ -14,7 +14,7 @@ public class Book {
 	
 	@Id
 	@Column
-	private int isbn;
+	private String isbn;
 	@Column
 	private String title;
 	@Column
@@ -27,11 +27,11 @@ public class Book {
 		return "book [ISBN=" + isbn + ", Title=" + title + ", Year_of_publication=" + year_of_publication + ", Author=" + author + "]";
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 

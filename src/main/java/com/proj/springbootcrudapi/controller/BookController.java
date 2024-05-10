@@ -33,16 +33,19 @@ public class BookController {
 	public Book save(@RequestBody Book bookObj) throws IOException {
 		
 		if(bookService.save(bookObj))
-			throw new RuntimeException("book does not exist with isbn : "+bookObj.getIsbn());
-		return bookObj;
+			return bookObj;
+			//throw new RuntimeException("book does not exist with ISBN : "+bookObj.getIsbn());
+		else
+			throw new RuntimeException("book does not exist with ISBN : "+bookObj.getIsbn());
+		
 		
 	}
 	@GetMapping("/book/{isbn}")
-	public Book get(@PathVariable int isbn){
+	public Book get(@PathVariable String isbn){
 		
 		Book bookObj = bookService.get(isbn);
 		if(bookObj==null)
-			throw new RuntimeException("Book does not exist with isbn : "+isbn);
+			throw new RuntimeException("Book does not exist with isbn : "+bookObj.getIsbn());
 		
 		return bookObj;
 		
@@ -64,7 +67,7 @@ public class BookController {
 	}
 	
 	@DeleteMapping("/book/{isbn}")
-	public String delete(@PathVariable int isbn){
+	public String delete(@PathVariable String isbn){
 		
 		bookService.delete(isbn);
 		return "Book has been deleted with isbn : "+isbn;

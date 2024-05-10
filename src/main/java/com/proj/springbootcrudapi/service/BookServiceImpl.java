@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService{
 
 	@Transactional
 	@Override
-	public Book get(int isbn) {
+	public Book get(String isbn) {
 
 		return bookDao.get(isbn);
 	}
@@ -40,25 +40,29 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public boolean save(Book book) throws IOException {
 		
-		if(doesBookExist(String.valueOf(book.getIsbn()))) {
+		if(doesBookExist(book.getIsbn())) {
+			
 			bookDao.save(book);
 			return true;
 		}
-		else
+		else {
+			System.out.println("The book with ISBN " + book.getIsbn() + " doesn't exist");
 			return false;
+			
+		}
 		
 	}
 
 	@Transactional
 	@Override
-	public void delete(int isbn) {
+	public void delete(String isbn) {
 
 		bookDao.delete(isbn);
 		
 	}
 
-    public boolean doesBookExist(String bookId) throws IOException {
-        String urlString = "https://www.googleapis.com/books/v1/volumes/" + bookId + "?key=" + API_KEY;
+    public boolean doesBookExist(String isbn) throws IOException {
+        String urlString = "https://www.googleapis.com/books/v1/volumes/?key=" + API_KEY + "&q=isbn:" + isbn;
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -73,7 +77,8 @@ public class BookServiceImpl implements BookService{
             scanner.close();
 
             // Check if the response contains information about the book
-            return response.toString().contains("\"totalItems\":1");
+            System.out.println(response.toString());
+            return response.toString().contains("\"totalItems\": 1");
         } else {
             System.out.println("Error: Unable to connect to Google Books API "+responseCode);
             return false;

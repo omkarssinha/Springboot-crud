@@ -26,7 +26,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public Book get(int id) {
+	public Book get(String id) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		Book bookObj = currentSession.get(Book.class, id);
@@ -41,7 +41,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
 		Book bookObj = currentSession.get(Book.class, id);
